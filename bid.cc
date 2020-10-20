@@ -1,19 +1,19 @@
 #include "bid.hh"
 
-//implement the stuff in bid.hh
+bid::bid(type_t type, type_def_t def_type, int HCP, distribution dist, int level, suit_t suit) :
+	_type(type), _def(def_type), _HCP(HCP), _dist(dist), _level(level), _suit(suit) {}
 
+bid::bid(type_t type) {
+	_type = type;
+}
 
-//write the main loop for the bidding, taking into account three passes are bad
+bit::bid(int level, suit_t suit)
+{
+	_type = player_bid;
+	_level = level;
+	_suit = suit;
+}
 
-
-
-
-bid::auction_t bid::main_bidding_loop() {
-	auction_t auction;
-	while(!three_passes_in_a_row)
-	{
-		//calculate bid and or recieve it as input from user and add to auction
-		auction.push_back(makeMove());
-	}
-	return auction; 
+bid::get_suit() {
+	return _suit;
 }

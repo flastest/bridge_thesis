@@ -15,12 +15,11 @@ static class move {
 
 	card::card[] legalMoves();
 
-	//this should add the move to the auction so far
+	//this should add the move to the game so far, and maybe to the AI's knowledge of what's been played
 	call makeMove();
 
 
 	//based off of grandeur, there's a main game loop in move.cpp
-	// i guess bid.cc will have a main bidding loop?
 	auction_t main_playing_loop();
 
 }
