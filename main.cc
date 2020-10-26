@@ -1,22 +1,34 @@
 // this is just a main file
 //should create some stuff and start the game
-#include "bid.hh"
-#include "move.hh"
+#include "Call.hh"
+//#include "move.hh"
 #include "bidding_phase.hh"
+#include "player.hh"
 
 
 
 
-
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
+	(void) argc;
+	(void) argv;
 	// shuffle the deck
 	//deal
 
+	std::vector<player> players;
+	players.push_back(player());
+	players.push_back(player());
+	players.push_back(player());
+	players.push_back(player());
+
+
+	bidding_phase the_bidding(players);
 
 	//initiate bidding
-	bidding_phase::auction_t auction = bidding_phase.main_bidding_loop();
+	auction_t auction = the_bidding.main_bidding_loop();
 	//find trump suit
-	bid::suit_t trump_suit = bidding_phase.get_last_bid().get_suit(); 
+	suit_t trump_suit = the_bidding.get_last_bid().get_suit(); 
+
+	std::cout<<"trump_suit is "<<trump_suit<<std::endl;
 
 	//then using that auction, we have to start the play of the hand
 
