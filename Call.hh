@@ -87,10 +87,8 @@ public:
 //operator overloads 
 inline std::ostream & operator<<(std::ostream &Str, const Call &bid) { 
 	//TODO: cases for pass and doublw
-	Str<<"fuck yeah!\n";
 	if(bid._call_type == X || bid._call_type == XX || bid._call_type == PASS) 
 	{ 
-		Str<<"alright!! its a pass !\n";
 		const char* s = 0;
 #define PROCESS_VAL(p) case(p): s = #p; break;
 	    switch(bid._call_type){
@@ -103,15 +101,22 @@ inline std::ostream & operator<<(std::ostream &Str, const Call &bid) {
 	        PROCESS_VAL(OPENING);
 	    }
 #undef PROCESS_VAL
-	    Str<<"S IS" <<s<<"\n";
     	return Str << s;
 		//Str<<bid._call_type;
 	}
 	else 
 	{
-		Str<<"that wasn't a pass\n";
-
-		Str<<bid._level<<" "<<bid._suit;
+		const char* s = 0;
+#define PROCESS_VAL(p) case(p): s = #p; break;
+	    switch(bid._suit){
+	        PROCESS_VAL(SPADES);     
+	        PROCESS_VAL(NOTRUMP);     
+	        PROCESS_VAL(HEARTS);
+	        PROCESS_VAL(DIAMONDS);     
+	        PROCESS_VAL(CLUBS); 
+	    }
+#undef PROCESS_VAL
+		return Str<<bid._level<<" "<<s;
 	}
 	return Str;
 }
@@ -132,10 +137,24 @@ inline bool operator==(const Call& lhs, const Call& rhs)
 // TODO: the following need cases for XX and X!
 inline bool operator<(const Call& lhs, const Call& rhs) 
 {
-	return (lhs._suit < rhs._suit && lhs._level < rhs._level);
+	if (rhs._call_type == XX) return lhs._call_type == X; 
+	if (rhs._call_type == X) return lhs._call_type != X || lhs._call_type != PASS || lhs._call_type != XX;
+	if (rhs._call_type == PASS) return true;
+	if (lhs._call_type == PASS) return true;
+
+	if (lhs._level < rhs._level) return true;
+	if (lhs._level == rhs._level) return lhs._suit < rhs._suit;
+	return false;
 }
 
 inline bool operator>(const Call& lhs, const Call& rhs) 
 {	
-	return (lhs._suit > rhs._suit && lhs._level > rhs._level);
+	if (lhs._call_type == XX) return rhs._call_type == X; 
+	if (lhs._call_type == X) return rhs._call_type != X || rhs._call_type != PASS || rhs._call_type != XX;
+	if (lhs._call_type == PASS) return true;
+	if (rhs._call_type == PASS) return true;
+
+	if (lhs._level > rhs._level) return true;
+	if (lhs._level == rhs._level) return lhs._suit > rhs._suit;
+	return false;
 }

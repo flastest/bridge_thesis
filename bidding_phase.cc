@@ -6,7 +6,8 @@
 //write the main loop for the bidding, taking into account three passes are bad
 
 Call bidding_phase::makeBid(player p) {
-	return p.make_bid(last_bid);
+	Call players_bid = p.make_bid(last_bid);
+	return players_bid;
 }
 
 
@@ -17,8 +18,8 @@ bool bidding_phase::isLegal(Call bid) {
 
 auction_t bidding_phase::main_bidding_loop() {
 
-	Call last_bid(PASS);
-	std::cout<<"last bid was "<<last_bid<<std::endl;
+	//Call last_bid(PASS);
+	//std::cout<<"last bid was "<<last_bid<<std::endl;
 
 	int passes_in_a_row = -1; //takes into account the first turn where there can be 4 passes in a row
 
@@ -35,6 +36,8 @@ auction_t bidding_phase::main_bidding_loop() {
 			passes_in_a_row++;
 		}
 		else {
+			//TODO doubling and rdbl-ing an auction
+			//std::cout << "comparing last bid [" << last_bid << "] to cur bid [" <<cur_bid <<"]"<<std::endl; 
 			last_bid = cur_bid;
 		}
 
