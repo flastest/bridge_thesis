@@ -17,6 +17,9 @@ bool bidding_phase::isLegal(Call bid) {
 
 auction_t bidding_phase::main_bidding_loop() {
 
+	Call last_bid(PASS);
+	std::cout<<"last bid was "<<last_bid<<std::endl;
+
 	int passes_in_a_row = -1; //takes into account the first turn where there can be 4 passes in a row
 
 	int pid = 0; //this is the starting player id, shouldn't be 0, should be id of whoever is first
@@ -24,6 +27,7 @@ auction_t bidding_phase::main_bidding_loop() {
 	while(passes_in_a_row < 4)
 	{
 		Call cur_bid = makeBid(_players[pid%4]);
+		//std::cout<<"yo player just bid" <<cur_bid<<std::endl;
 		//here you can do stuff if the bid's type is player_bid or something.
 		pid++;
 

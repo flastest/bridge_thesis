@@ -30,7 +30,7 @@ public:
 	// a collection of all the calls so far that make up the auction
 	auction_t auction;
 
-	Call last_bid;
+	Call last_bid = Call(PASS); //this doesn't work for some reason?
 
 	//a function to determine what legal bids are
 	// if there are no possible bids because there are 3 passes in a row, it should return nothing which will end the bidding

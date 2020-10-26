@@ -3,7 +3,7 @@
 
 #pragma once
 
-enum call_t { player_bid, opening, PASS, X, XX, overcall, response };
+enum call_t { PLAYER_BID, OPENING, PASS, X, XX, OVERCALL, RESPONSE };
 enum suit_t { CLUBS, DIAMONDS, HEARTS, SPADES, NOTRUMP };
 
 
@@ -34,7 +34,7 @@ class Call {
 
 
 	//type of Call- this should be opening response or overcall
-	call_t _type; //in a perfect world, this is only one bit
+	call_t _call_type; //in a perfect world, this is only one bit
 
 	call_def_t _def;
 
@@ -52,11 +52,11 @@ public:
 
 	//adds a Call to the bidding system
 	//type defines whether it's an overcall, response, or opening Call
-	//def_type defines the type (if this Call is a response, def_type tells you what you're responding to)
+	//def_call_type defines the type (if this Call is a response, def_call_type tells you what you're responding to)
 	//HCP is self explanatory
 	//dist is the sort of distribution you need to make this Call
 	//level is the level of the Call, suit is the suit of the Call (level = 7, suit = s for 7S)
-	Call(call_t type, call_def_t def_type, int HCP, distribution dist, int level, suit_t suit);
+	Call(call_t type, call_def_t def_call_type, int HCP, distribution dist, int level, suit_t suit);
 
 	Call(call_t type);
 
@@ -75,41 +75,67 @@ public:
 
 	call_t get_call_t();
 
-	void set_call(call_t call) { _type = call; }
+	void set_call(call_t call) { _call_type = call; }
 	void set_call(int level, suit_t suit) { _level = level; _suit = suit; }
 
-
-	//operator overloads 
-	friend std::ostream & operator<<(std::ostream &Str, const Call &bid) { 
-		// print something from v to str, e.g: Str << v.getX();
-		//TODO: cases for pass and doublw
-		Str<<bid._level<<" "<<bid._suit;
-		return Str;
-	}
-
-
-	friend bool operator==(const Call& lhs, const Call& rhs) 
-	{	
-		if (lhs._type == rhs._type)
-		{
-			if (lhs._type != PASS || lhs._type != X || lhs._type != XX){
-				return (lhs._suit == rhs._suit && lhs._level == rhs._level);
-			}
-			return true;
-		}
-		return false;
-	}
-
-
-	// TODO: the following need cases for XX and X!
-	friend bool operator<(const Call& lhs, const Call& rhs) 
-	{
-		return (lhs._suit < rhs._suit && lhs._level < rhs._level);
-	}
-
-	friend bool operator>(const Call& lhs, const Call& rhs) 
-	{	
-		return (lhs._suit > rhs._suit && lhs._level > rhs._level);
-	}
-
+	friend std::ostream & operator<<(std::ostream &Str, const Call &bid);
+	friend bool operator==(const Call& lhs, const Call& rhs);
+	friend bool operator<(const Call& lhs, const Call& rhs);
+	friend bool operator>(const Call& lhs, const Call& rhs); 
 };
+
+//operator overloads 
+inline std::ostream & operator<<(std::ostream &Str, const Call &bid) { 
+	//TODO: cases for pass and doublw
+	Str<<"fuck yeah!\n";
+	if(bid._call_type == X || bid._call_type == XX || bid._call_type == PASS) 
+	{ 
+		Str<<"alright!! its a pass !\n";
+		const char* s = 0;
+#define PROCESS_VAL(p) case(p): s = #p; break;
+	    switch(bid._call_type){
+	        PROCESS_VAL(X);     
+	        PROCESS_VAL(XX);     
+	        PROCESS_VAL(PASS);
+	        PROCESS_VAL(PLAYER_BID);     
+	        PROCESS_VAL(OVERCALL);     
+	        PROCESS_VAL(RESPONSE);
+	        PROCESS_VAL(OPENING);
+	    }
+#undef PROCESS_VAL
+	    Str<<"S IS" <<s<<"\n";
+    	return Str << s;
+		//Str<<bid._call_type;
+	}
+	else 
+	{
+		Str<<"that wasn't a pass\n";
+
+		Str<<bid._level<<" "<<bid._suit;
+	}
+	return Str;
+}
+
+inline bool operator==(const Call& lhs, const Call& rhs) 
+{	
+	if (lhs._call_type == rhs._call_type)
+	{
+		if (lhs._call_type != PASS || lhs._call_type != X || lhs._call_type != XX){
+			return (lhs._suit == rhs._suit && lhs._level == rhs._level);
+		}
+		return true;
+	}
+	return false;
+}
+
+
+// TODO: the following need cases for XX and X!
+inline bool operator<(const Call& lhs, const Call& rhs) 
+{
+	return (lhs._suit < rhs._suit && lhs._level < rhs._level);
+}
+
+inline bool operator>(const Call& lhs, const Call& rhs) 
+{	
+	return (lhs._suit > rhs._suit && lhs._level > rhs._level);
+}

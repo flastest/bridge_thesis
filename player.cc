@@ -15,7 +15,9 @@ Call player::make_bid (Call last_bid) {
 	while(!legal) {
 		if(bid_s.compare("PASS") == 0 || bid_s.compare("pass") == 0 || bid_s.compare("P") == 0 || bid_s.compare("p") == 0) 
 		{
+			//std::cout <<"YO THAT'S A PASS!\n";
 			bid_to_play.set_call(PASS);
+			//std::cout<<"bid_to_play is "<<bid_to_play<<std::endl;
 			legal = true;
 			break;
 		}
