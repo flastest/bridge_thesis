@@ -28,6 +28,7 @@ struct distribution {
 
 
 class Call {
+private:
 	//this defines the call further... will implement later
 	enum call_def_t { NT, stayman, jacoby_transfer };
 	

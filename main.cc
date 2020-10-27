@@ -18,10 +18,10 @@ int main(int argc, char* argv[]) {
 	std::vector<std::vector<bridge_card>> all_hands = deck.deal(); 
 
 	std::vector<player> players;
-	players.push_back(player());
-	players.push_back(player());
-	players.push_back(player());
-	players.push_back(player());
+	players.push_back(player(all_hands[0]));
+	players.push_back(player(all_hands[1]));
+	players.push_back(player(all_hands[2]));
+	players.push_back(player(all_hands[3]));
 
 
 	bidding_phase the_bidding(players);

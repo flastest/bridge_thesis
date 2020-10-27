@@ -2,10 +2,11 @@
 
 //make this abstract like grandeur
 
-
 Call player::make_bid (Call last_bid) {
 	//player has to choose a bid that's larger than the last bid, or legal.
-	
+	std::cout<<"here's your hand"<<std::endl;
+	print_hand();
+
 	std::string bid_s;
 	
 
@@ -78,6 +79,31 @@ Call player::make_bid (Call last_bid) {
 
 	}
 	return bid_to_play;
+}
 
+bool sort_func(bridge_card lhs, bridge_card rhs)
+{
+	int lhs_val = lhs.get_suit()*14 + lhs.get_rank();
+	int rhs_val = rhs.get_suit()*14 + rhs.get_rank();
+	return (lhs_val<rhs_val);
+}
 
+void player::sort_hand() 
+{
+	
+	std::sort(player_hand.begin(), player_hand.end(), sort_func);
+		
+}
+
+void player::print_hand() 
+{
+	suit_t last_suit = CLUBS;
+	for (auto i : player_hand){
+		if (last_suit != i.get_suit()) {
+			std::cout<<std::endl;
+			last_suit = i.get_suit();
+		}
+		std::cout<< i << " "<<std::flush;
+ 	}	
+ 	std::cout<<std::endl;
 }

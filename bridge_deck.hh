@@ -3,21 +3,11 @@
 #include <algorithm> 			//for std::random_shuffle
 #include <cstdlib>				//for std::rand
 #include <ctime>				//for std::time
-
+#include "bridge_card.hh"
 
 #pragma once
 
-class bridge_card {
-private:
-	suit_t _suit;
-	int _rank;
 
-public:
-	bridge_card(suit_t suit, int rank) : _suit(suit), _rank(rank){};
-	suit_t get_suit() {return _suit;}
-	int get_rank() {return _rank;}
-
-};
 
 
 class bridge_deck {
