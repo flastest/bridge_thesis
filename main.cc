@@ -8,6 +8,8 @@
 
 
 
+
+
 int main(int argc, char* argv[]) {
 	(void) argc;
 	(void) argv;
@@ -29,9 +31,27 @@ int main(int argc, char* argv[]) {
 	//initiate bidding
 	auction_t auction = the_bidding.main_bidding_loop();
 	//find trump suit
-	suit_t trump_suit = the_bidding.get_last_bid().get_suit(); 
+	Call last_bid = the_bidding.get_last_bid();
 
-	std::cout<<"trump_suit is "<<trump_suit<<std::endl;
+
+	if (the_bidding.last_bid.get_call_t() == PASS){
+		std::cout<<"ok cool we passed out swagalicious"<<std::endl;
+		return 0;
+	}
+
+
+	const char* s = 0;
+#define PROCESS_VAL(p) case(p): s = #p; break;
+	    switch(last_bid.get_suit()){
+	        PROCESS_VAL(SPADES);     
+	        PROCESS_VAL(NOTRUMP);     
+	        PROCESS_VAL(HEARTS);
+	        PROCESS_VAL(DIAMONDS);     
+	        PROCESS_VAL(CLUBS); 
+	    }
+#undef PROCESS_VAL
+
+	std::cout<<"trump_suit is "<<s<<std::endl;
 
 	//then using that auction, we have to start the play of the hand
 

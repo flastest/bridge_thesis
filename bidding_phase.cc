@@ -25,7 +25,7 @@ auction_t bidding_phase::main_bidding_loop() {
 
 	int pid = 0; //this is the starting player id, shouldn't be 0, should be id of whoever is first
 
-	while(passes_in_a_row < 4)
+	while(passes_in_a_row < 3)
 	{
 		Call cur_bid = makeBid(_players[pid%4]);
 		//std::cout<<"yo player just bid" <<cur_bid<<std::endl;
@@ -35,10 +35,12 @@ auction_t bidding_phase::main_bidding_loop() {
 		if(cur_bid.get_call_t() == PASS) {
 			passes_in_a_row++;
 		}
+		// someone made a bid
 		else {
 			//TODO doubling and rdbl-ing an auction
 			//std::cout << "comparing last bid [" << last_bid << "] to cur bid [" <<cur_bid <<"]"<<std::endl; 
 			last_bid = cur_bid;
+			passes_in_a_row = 0;
 		}
 
 		auction.push_back(cur_bid);
