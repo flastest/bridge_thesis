@@ -4,15 +4,18 @@
 //#include "move.hh"
 #include "bidding_phase.hh"
 #include "player.hh"
-
+#include "bridge_deck.hh"
 
 
 
 int main(int argc, char* argv[]) {
 	(void) argc;
 	(void) argv;
-	// shuffle the deck
-	//deal
+	
+
+	bridge_deck deck;
+	deck.shuffle_cards();
+	std::vector<std::vector<bridge_card>> all_hands = deck.deal(); 
 
 	std::vector<player> players;
 	players.push_back(player());

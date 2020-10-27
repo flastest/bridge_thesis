@@ -12,7 +12,7 @@ Call player::make_bid (Call last_bid) {
 	Call bid_to_play;
 	bool legal = false;
 	while(!legal) {
-		std::cout<<"yo what do u want to bid the last bid was "<<last_bid<<std::endl;
+		std::cout<<"---\nyo what do u want to bid the last bid was "<<last_bid<<std::endl;
 		std::cout<<"bidding is like 'PASS' or 'X' or '3S' or '1N'"<<std::endl;
 
 		std::cin>>bid_s;
@@ -43,23 +43,35 @@ Call player::make_bid (Call last_bid) {
 			std::cout << "current bid is "<< level << suit <<std::endl;
 			if (suit == 's' || suit == 'S' ) {
 				bid_to_play.set_call(level, SPADES);
+				if(bid_to_play > last_bid) {
+					legal = true;
+				}
 			}
 			if (suit == 'h' || suit == 'H' ) {
 				bid_to_play.set_call(level, HEARTS);
+				if(bid_to_play > last_bid) {
+					legal = true;
+				}
 			}
 			if (suit == 'd' || suit == 'D' ) {
 				bid_to_play.set_call(level, DIAMONDS);
+				if(bid_to_play > last_bid) {
+					legal = true;
+				}
 			}
 			if (suit == 'c' || suit == 'C' ) {
 				bid_to_play.set_call(level, CLUBS);
+				if(bid_to_play > last_bid) {
+					legal = true;
+				}
 			}
 			if (suit == 'n' || suit == 'N' ) {
 				bid_to_play.set_call(level, NOTRUMP);
+				if(bid_to_play > last_bid) {
+					legal = true;
+				}
 			}
-			if (bid_to_play > last_bid) {
-				std::cout <<"bid to play is [" << bid_to_play<<"] last bid is [" << last_bid<<"]"<<std::endl;
-				legal = true;
-			}
+			
 
 		}
 		if (!legal) std::cout <<"that is not a legal bid! try again\n";

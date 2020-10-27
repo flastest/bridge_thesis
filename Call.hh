@@ -1,10 +1,10 @@
 #include <string>
 #include <iostream>
+#include "bridge_constants.hh" //for suit_t
 
 #pragma once
 
 enum call_t { PLAYER_BID, OPENING, PASS, X, XX, OVERCALL, RESPONSE };
-enum suit_t { CLUBS, DIAMONDS, HEARTS, SPADES, NOTRUMP };
 
 
 struct distribution {

@@ -1,6 +1,7 @@
 // this will describe the deck, and possibly hierarchy?
 
 
+
 //maybe there will be a function that takes a trump suit and all the played cards and determines which one is the winner?
 
 
